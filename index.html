@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Master - GV Thúy & Duyên</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --dark: #0f172a;
+            --bg-gradient: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease; }
+
+        body {
+            background: var(--bg-gradient);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        header {
+            background: var(--dark);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; font-size: 3.2em; font-weight: 800; letter-spacing: -1.5px; }
+        header p { margin-top: 10px; opacity: 0.8; font-size: 1.1em; font-weight: 300; }
+
+        .container {
+            max-width: 1100px;
+            width: 90%;
+            margin: -40px auto 40px;
+            flex: 1;
+        }
+
+        /* Azota Box */
+        .azota-box {
+            background: white;
+            padding: 25px 35px;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--accent);
+        }
+
+        .azota-text b { color: var(--accent); font-size: 1.25em; display: block; }
+        .azota-text span { color: var(--secondary); font-size: 0.9em; }
+
+        .azota-btn {
+            background: var(--accent);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .azota-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(245, 158, 11, 0.4); }
+
+        /* Lesson Cards */
+        #menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .lesson-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 28px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
+        }
+
+        .lesson-card span.badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: 6px 14px;
+            border-radius: 100px;
+            width: fit-content;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        .lesson-card h3 {
+            margin: 0 0 12px 0;
+            color: var(--dark);
+            font-size: 1.55rem;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .lesson-card p {
+            color: var(--secondary);
+            margin: 0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .lesson-card::after {
+            content: '→';
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 1.6rem;
+            color: var(--primary);
+            opacity: 0;
+            transform: translateX(-15px);
+        }
+
+        .lesson-card:hover::after { opacity: 1; transform: translateX(0); }
+
+        /* Resources Section */
+        .resources-section {
+            background: white;
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            margin-top: 20px;
+        }
+
+        .resources-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--dark);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+        }
+
+        .resource-item {
+            padding: 20px;
+            border-bottom: 1px solid #f1f5f9;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .resource-item:hover { background: #f8fafc; border-radius: 18px; }
+        .resource-item strong { color: var(--primary); display: block; font-size: 1.15rem; margin-bottom: 5px; }
+        .resource-item p { margin: 0; color: var(--secondary); font-size: 0.95rem; line-height: 1.6; }
+        .resource-item b { color: var(--primary); text-decoration: underline; }
+
+        /* Game UI */
+        #game-area {
+            display: none;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .term-display { font-size: 4.2em; font-weight: 800; margin: 40px 0; color: var(--dark); letter-spacing: -3px; }
+
+        .option-btn {
+            background: #f8fafc;
+            border: 2px solid #f1f5f9;
+            padding: 22px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+            font-family: inherit;
+            font-weight: 600;
+        }
+
+        .option-btn:hover { border-color: var(--primary); color: var(--primary); background: #eff6ff; }
+
+        .progress-bar { height: 12px; background: #f1f5f9; border-radius: 20px; margin: 30px 0; overflow: hidden; }
+        #progress-fill { height: 100%; background: var(--success); width: 0%; transition: 0.5s; }
+
+        footer {
+            background: var(--dark);
+            color: #94a3b8;
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer b { color: #38bdf8; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>DB Master 2026</h1>
+    <p>Nâng tầm kiến thức CSDL cùng tiếng Anh chuyên ngành</p>
+</header>
+
+<div class="container" id="main-content">
+    <div class="azota-box">
+        <div class="azota-text">
+            <b>Kiểm tra năng lực Online</b>
+            <span>Sau khi ôn tập, hãy thử sức mình tại hệ thống Azota nhé!</span>
+        </div>
+        <a href="https://azota.vn" target="_blank" class="azota-btn">Vào thi ngay ➔</a>
+    </div>
+
+    <div id="menu">
+        <div class="lesson-card" onclick="startLesson(0)">
+            <span class="badge">20 Vocabularies</span>
+            <h3>Bài 1: Tổng quan CSDL</h3>
+            <p>Database, Schema, Metadata... Nền tảng cơ bản về dữ liệu.</p>
+        </div>
+        <div class="lesson-card" onclick="startLesson(1)">
+            <span class="badge">20 Vocabularies</span>
+            <h3>Bài 2: Khóa & Ràng buộc</h3>
+            <p>Primary Key, Foreign Key, Integrity... Quy tắc ràng buộc.</p>
+        </div>
+        <div class="lesson-card" onclick="startLesson(2)">
+            <span class="badge">20 Vocabularies</span>
+            <h3>Bài 3: Ngôn ngữ SQL</h3>
+            <p>Query, Select, Insert, DDL, DML... Ngôn ngữ truy vấn chuẩn.</p>
+        </div>
+        <div class="lesson-card" onclick="startLesson(3)">
+            <span class="badge">20 Vocabularies</span>
+            <h3>Bài 4: Thao tác nâng cao</h3>
+            <p>Join, Index, Trigger, View... Tối ưu hóa & xử lý dữ liệu.</p>
+        </div>
+        <div class="lesson-card" onclick="startLesson(4)">
+            <span class="badge">20 Vocabularies</span>
+            <h3>Bài 5: Quản trị & Bảo mật</h3>
+            <p>Backup, DBA, Encryption... Bảo vệ & vận hành hệ thống.</p>
+        </div>
+    </div>
+
+    <div class="resources-section">
+        <h2>📚 Tài liệu Tiếng Anh Tham khảo</h2>
+        <a href="https://open.umn.edu/opentextbooks/textbooks/database-design-2nd-edition" target="_blank" class="resource-item">
+            <strong>Open Textbook Library</strong>
+            <p><b>Database Design - 2nd Edition:</b> Một cuốn giáo trình cực hay cho người mới bắt đầu.</p>
+        </a>
+        <a href="https://github.com/EbookFoundation/free-programming-books/blob/main/books/free-programming-books-langs.md#database" target="_blank" class="resource-item">
+            <strong>GitHub - Free Programming Books</strong>
+            <p><b>Danh sách sách Database miễn phí:</b> Tổng hợp hàng trăm link sách về SQL, NoSQL, tối ưu hóa...</p>
+        </a>
+        <a href="http://www.redbook.io/" target="_blank" class="resource-item">
+            <strong>The Red Book (Readings in Database Systems)</strong>
+            <p><b>redbook.io:</b> Tập hợp các bài báo khoa học quan trọng nhất về hệ thống CSDL.</p>
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <div id="game-area">
+        <button onclick="location.reload()" style="background:none; border:none; color:var(--primary); cursor:pointer; font-weight:800;">✖ THOÁT BÀI HỌC</button>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+        <div id="word-en" class="term-display">Word</div>
+        <div id="options-box"></div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Digital Learning Platform</p>
+    <p>Bản quyền nội dung thuộc về: <b>GV Thúy & Duyên</b></p>
+</footer>
+
+<script>
+const lessons = [
+    [ // Bài 1
+        {en:"Database", vi:"Cơ sở dữ liệu", alt:["Máy chủ","Dữ liệu rác","Trình duyệt"]},
+        {en:"Table", vi:"Bảng dữ liệu", alt:["Tệp tin","Thư mục","Danh mục"]},
+        {en:"Record", vi:"Bản ghi (Hàng)", alt:["Cột","Khóa","Ô"]},
+        {en:"Field", vi:"Trường (Cột)", alt:["Hàng","Giá trị","Bảng"]},
+        {en:"Schema", vi:"Lược đồ", alt:["Bản vẽ","Mã nguồn","Giao diện"]},
+        {en:"Metadata", vi:"Siêu dữ liệu", alt:["Dữ liệu thô","Dữ liệu nén","Dữ liệu mật"]},
+        {en:"Data Type", vi:"Kiểu dữ liệu", alt:["Kích thước","Định dạng","Tên biến"]},
+        {en:"Attribute", vi:"Thuộc tính", alt:["Hành động","Giá trị","Chức năng"]},
+        {en:"Tuple", vi:"Bộ dữ liệu (Hàng)", alt:["Danh sách","Mảng","Đối tượng"]},
+        {en:"Relation", vi:"Quan hệ", alt:["Kết nối","Thành phần","Tương tác"]},
+        {en:"Data Warehouse", vi:"Kho dữ liệu", alt:["Máy chủ","Ổ cứng","Đám mây"]},
+        {en:"Big Data", vi:"Dữ liệu lớn", alt:["Dữ liệu nhỏ","Dữ liệu cũ","Dữ liệu mật"]},
+        {en:"Flat File", vi:"Tệp phẳng", alt:["Tệp nén","Tệp ẩn","Tệp hệ thống"]},
+        {en:"Redundancy", vi:"Sự dư thừa dữ liệu", alt:["Sự bảo mật","Sự thiếu hụt","Sự nén"]},
+        {en:"Consistency", vi:"Tính nhất quán", alt:["Tính rời rạc","Tính lặp lại","Tính mở"]},
+        {en:"Inconsistency", vi:"Tính không nhất quán", alt:["Tính bảo mật","Tính chính xác","Tính bền vững"]},
+        {en:"Instance", vi:"Thực thể/Hiện hữu", alt:["Mẫu thử","Lỗi máy","Yêu cầu"]},
+        {en:"Abstraction", vi:"Sự trừu tượng hóa", alt:["Sự cụ thể","Sự mã hóa","Sự xóa bỏ"]},
+        {en:"Hierarchy", vi:"Phân cấp", alt:["Đồng cấp","Rời rạc","Tự do"]},
+        {en:"Storage", vi:"Lưu trữ", alt:["Xử lý","Truyền tải","Mã hóa"]}
+    ],
+    [ // Bài 2
+        {en:"Primary Key", vi:"Khóa chính", alt:["Khóa ngoại","Khóa phụ","Khóa ảo"]},
+        {en:"Foreign Key", vi:"Khóa ngoại", alt:["Khóa chính","Khóa đơn","Khóa mật"]},
+        {en:"Candidate Key", vi:"Khóa dự tuyển", alt:["Khóa chính thức","Khóa bí mật","Khóa ảo"]},
+        {en:"Composite Key", vi:"Khóa tổ hợp", alt:["Khóa đơn","Khóa ẩn","Khóa phụ"]},
+        {en:"Constraint", vi:"Ràng buộc", alt:["Tự do","Mở rộng","Liên kết"]},
+        {en:"Integrity", vi:"Tính toàn vẹn", alt:["Tính bảo mật","Tính đa dạng","Tính mở"]},
+        {en:"Unique", vi:"Duy nhất (Không trùng)", alt:["Phổ biến","Công khai","Nhiều hàng"]},
+        {en:"Null Value", vi:"Giá trị rỗng", alt:["Giá trị 0","Giá trị mặc định","Giá trị sai"]},
+        {en:"Validation", vi:"Xác thực", alt:["Xóa bỏ","Lưu trữ","Mã hóa"]},
+        {en:"Referential", vi:"Tham chiếu", alt:["Chuyển đổi","Sửa lỗi","Kết nối"]},
+        {en:"Domain", vi:"Miền giá trị", alt:["Tên miền","Địa chỉ","Trang web"]},
+        {en:"Cardinality", vi:"Bản số", alt:["Định dạng","Kích thước","Phân loại"]},
+        {en:"Super Key", vi:"Siêu khóa", alt:["Khóa phụ","Khóa ảo","Khóa chính"]},
+        {en:"Relationship", vi:"Mối quan hệ", alt:["Kết nối mạng","Thành phần","Tương tác"]},
+        {en:"One-to-One", vi:"Quan hệ 1-1", alt:["Quan hệ 1-N","Quan hệ N-N","Quan hệ ẩn"]},
+        {en:"One-to-Many", vi:"Quan hệ 1-Nhiều", alt:["Quan hệ 1-1","Quan hệ N-N","Quan hệ lặp"]},
+        {en:"Many-to-Many", vi:"Quan hệ Nhiều-Nhiều", alt:["Quan hệ 1-1","Quan hệ 1-N","Quan hệ đơn"]},
+        {en:"Mandatory", vi:"Bắt buộc", alt:["Tùy chọn","Bị cấm","Không giới hạn"]},
+        {en:"Optional", vi:"Tùy chọn", alt:["Bắt buộc","Cần thiết","Cố định"]},
+        {en:"Dependency", vi:"Sự phụ thuộc", alt:["Sự độc lập","Sự liên kết","Sự rời rạc"]}
+    ],
+    [ // Bài 3
+        {en:"Query", vi:"Truy vấn", alt:["Yêu cầu xóa","Tìm lỗi","Cài đặt"]},
+        {en:"SQL", vi:"Ngôn ngữ truy vấn cấu trúc", alt:["Ngôn ngữ máy","Web","Hệ điều hành"]},
+        {en:"Select", vi:"Lấy/Chọn dữ liệu", alt:["Xóa","Sửa","Thêm"]},
+        {en:"Insert", vi:"Chèn/Thêm dữ liệu", alt:["Lọc","Tìm","Xóa"]},
+        {en:"Update", vi:"Cập nhật", alt:["Xóa","Sao lưu","Tải về"]},
+        {en:"Delete", vi:"Xóa dữ liệu", alt:["Lưu","Sửa","Chèn"]},
+        {en:"Statement", vi:"Câu lệnh", alt:["Lời chào","Ghi chú","Báo cáo"]},
+        {en:"Clause", vi:"Mệnh đề", alt:["Kết quả","Điều kiện","Tiêu đề"]},
+        {en:"Order By", vi:"Sắp xếp theo", alt:["Lọc theo","Tìm theo","Nhóm theo"]},
+        {en:"Group By", vi:"Nhóm theo", alt:["Sắp xếp theo","Xóa theo","Lưu theo"]},
+        {en:"Having", vi:"Điều kiện nhóm", alt:["Điều kiện lọc","Sắp xếp","Kết nối"]},
+        {en:"Join", vi:"Phép nối", alt:["Phép cộng","Phép chia","Phép lọc"]},
+        {en:"Distinct", vi:"Phân biệt/Duy nhất", alt:["Lặp lại","Tất cả","Bất kỳ"]},
+        {en:"Union", vi:"Phép hợp", alt:["Phép giao","Phép trừ","Phép nối"]},
+        {en:"Alias", vi:"Bí danh (AS)", alt:["Tên thật","Mật khẩu","Đường dẫn"]},
+        {en:"Aggregate", vi:"Hàm tổng hợp", alt:["Hàm toán học","Hàm chuỗi","Hàm ngày"]},
+        {en:"Wildcard", vi:"Ký tự đại diện", alt:["Ký tự đặc biệt","Mật mã","Chữ số"]},
+        {en:"Nested Query", vi:"Truy vấn lồng nhau", alt:["Truy vấn đơn","Truy vấn lỗi","Truy vấn ẩn"]},
+        {en:"DDL", vi:"Ngôn ngữ định nghĩa dữ liệu", alt:["Ngôn ngữ thao tác","Ngôn ngữ máy","Ngôn ngữ web"]},
+        {en:"DML", vi:"Ngôn ngữ thao tác dữ liệu", alt:["Ngôn ngữ định nghĩa","Ngôn ngữ máy","Ngôn ngữ thiết kế"]}
+    ],
+    [ // Bài 4
+        {en:"Index", vi:"Chỉ mục (Tăng tốc)", alt:["Số trang","Ký hiệu","Mục lục"]},
+        {en:"Trigger", vi:"Trình kích hoạt", alt:["Nút bấm","Cảnh báo","Lỗi"]},
+        {en:"Stored Procedure", vi:"Thủ tục lưu trữ", alt:["Hàm xử lý","Bản sao","Cài đặt"]},
+        {en:"View", vi:"Bảng ảo (Khung nhìn)", alt:["Hình ảnh","Giao diện","Thư mục"]},
+        {en:"Normalization", vi:"Chuẩn hóa", alt:["Nén","Phân tích","Giải nén"]},
+        {en:"Denormalization", vi:"Phi chuẩn hóa", alt:["Chuẩn hóa","Nén","Mã hóa"]},
+        {en:"Inner Join", vi:"Nối trong", alt:["Nối ngoài","Nối trái","Nối phải"]},
+        {en:"Left Join", vi:"Nối trái", alt:["Nối phải","Nối trong","Nối chéo"]},
+        {en:"Right Join", vi:"Nối phải", alt:["Nối trái","Nối trong","Nối ẩn"]},
+        {en:"Transaction", vi:"Giao dịch", alt:["Sửa đổi","Chuyển tiền","Tính toán"]},
+        {en:"Commit", vi:"Xác nhận thay đổi", alt:["Hủy thay đổi","Lưu tạm","Xóa bỏ"]},
+        {en:"Rollback", vi:"Hoàn tác", alt:["Xác nhận","Sửa lỗi","Xóa sạch"]},
+        {en:"Concurrency", vi:"Sự đồng thời", alt:["Sự rời rạc","Sự chậm trễ","Sự lặp lại"]},
+        {en:"Locking", vi:"Khóa dữ liệu", alt:["Xóa dữ liệu","Mã hóa","Sao lưu"]},
+        {en:"Deadlock", vi:"Tắc nghẽn", alt:["Kết nối nhanh","Lỗi mạng","Bảo trì"]},
+        {en:"Execution Plan", vi:"Kế hoạch thực thi", alt:["Kế hoạch bảo mật","Kế hoạch xóa","Kế hoạch lưu"]},
+        {en:"Data Mining", vi:"Khai thác dữ liệu", alt:["Xóa dữ liệu","Nén dữ liệu","Nhập dữ liệu"]},
+        {en:"Aggregation", vi:"Sự tổng hợp", alt:["Sự phân chia","Sự xóa bỏ","Sự lặp lại"]},
+        {en:"Filter", vi:"Bộ lọc", alt:["Bộ nén","Bộ xóa","Bộ truyền"]},
+        {en:"Sorting", vi:"Sắp xếp", alt:["Lưu trữ","Mã hóa","Xóa bỏ"]}
+    ],
+    [ // Bài 5
+        {en:"Backup", vi:"Sao lưu", alt:["Xóa","Phục hồi","Tải về"]},
+        {en:"Restore", vi:"Phục hồi", alt:["Xóa sạch","Lưu trữ","Cài lại"]},
+        {en:"DBA", vi:"Quản trị viên CSDL", alt:["Hacker","Người dùng","Thiết kế"]},
+        {en:"Encryption", vi:"Mã hóa", alt:["Giải nén","Dịch văn bản","Xóa tệp"]},
+        {en:"Privilege", vi:"Quyền truy cập", alt:["Mật khẩu","Thông báo","Tài khoản"]},
+        {en:"Grant", vi:"Cấp quyền", alt:["Thu hồi quyền","Xóa quyền","Ẩn quyền"]},
+        {en:"Revoke", vi:"Thu hồi quyền", alt:["Cấp quyền","Cho phép","Sửa quyền"]},
+        {en:"Log File", vi:"Tệp nhật ký", alt:["Tệp ảnh","Tệp rác","Tệp hệ thống"]},
+        {en:"Recovery", vi:"Sự khôi phục", alt:["Sự xóa bỏ","Sự hư hỏng","Sự nén"]},
+        {en:"Security", vi:"Bảo mật", alt:["Công khai","Dễ vỡ","Tự do"]},
+        {en:"Authorization", vi:"Sự cấp phép", alt:["Sự từ chối","Sự xóa bỏ","Sự truy cập"]},
+        {en:"Authentication", vi:"Sự xác thực", alt:["Sự lừa đảo","Sự ẩn danh","Sự đăng xuất"]},
+        {en:"Firewall", vi:"Tường lửa", alt:["Phần mềm diệt virus","Hệ điều hành","Trình duyệt"]},
+        {en:"Mirroring", vi:"Soi bóng", alt:["Xóa bỏ","Cắt ghép","Nén"]},
+        {en:"Scalability", vi:"Khả năng mở rộng", alt:["Khả năng thu hẹp","Độ cứng","Độ bền"]},
+        {en:"Availability", vi:"Tính sẵn sàng", alt:["Tính bảo mật","Tính hư hỏng","Tính rời rạc"]},
+        {en:"DBMS", vi:"Hệ quản trị CSDL", alt:["Phần cứng","Hệ điều hành","Ứng dụng"]},
+        {en:"NoSQL", vi:"CSDL phi quan hệ", alt:["CSDL có cấu trúc","CSDL cũ","CSDL mật"]},
+        {en:"Cloud Database", vi:"CSDL đám mây", alt:["CSDL ngoại tuyến","CSDL cục bộ","Ổ cứng"]},
+        {en:"Isolation", vi:"Sự cô lập", alt:["Sự kết nối","Sự chia sẻ","Sự đồng bộ"]}
+    ]
+];
+
+let activeLesson = [];
+let wordIdx = 0;
+
+function startLesson(i) {
+    activeLesson = [...lessons[i]].sort(() => Math.random() - 0.5);
+    wordIdx = 0;
+    document.getElementById('main-content').style.display = 'none';
+    document.getElementById('game-area').style.display = 'block';
+    render();
+}
+
+function render() {
+    const d = activeLesson[wordIdx];
+    document.getElementById('word-en').innerText = d.en;
+    document.getElementById('progress-fill').style.width = (wordIdx / activeLesson.length) * 100 + "%";
+    
+    const opts = [d.vi, ...d.alt].sort(() => Math.random() - 0.5);
+    const box = document.getElementById('options-box');
+    box.innerHTML = "";
+    
+    opts.forEach(o => {
+        const b = document.createElement('button');
+        b.className = 'option-btn';
+        b.innerText = o;
+        b.onclick = () => {
+            if(o === d.vi) {
+                wordIdx++;
+                if(wordIdx < activeLesson.length) render();
+                else { alert("🎉 Tuyệt vời! Bạn đã hoàn thành bài học."); location.reload(); }
+            } else {
+                alert(`Sai rồi! "${d.en}" có nghĩa là: ${d.vi}`);
+            }
+        };
+        box.appendChild(b);
+    });
+}
+</script>
+</body>
+</html>
